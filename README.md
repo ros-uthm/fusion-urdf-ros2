@@ -5,7 +5,7 @@ edited from https://github.com/runtimerobotics/fusion360-urdf-ros2
 
 Here are the steps to install the script in Autodesk Fusion
 
-* **Step 1**: Download this repository [fusion360-urdf-ros2 as a Zip file](https://github.com/ros-uthm/fusion360-urdf-ros2/archive/refs/heads/main.zip) and extract the file to a location.
+* **Step 1**: Download this repository [fusion-urdf-ros2 as a Zip file](https://github.com/ros-uthm/fusion-urdf-ros2/archive/refs/heads/main.zip) and extract the file to a location.
 
 * **Step 3**: Open Autodesk Fusion and press *Shift+S*, this will show the Scripts and Add-Ins like shown below
 
@@ -13,14 +13,14 @@ Here are the steps to install the script in Autodesk Fusion
   <img src="img/scripts_ui.png" alt="Scripts and Add-Ins UI">
 </p>
 
-Click on the *Green +* icon and choose Script or add-in from device. This will show a an open file dialog option to select the extracted script folder as shown below. 
+Click on the *Green +* icon and choose Script or add-in from the device. This will show an open file dialog option to select the extracted script folder as shown below. 
 The folder we have to browse is *Fusion_URDF_Exporter_ROS2*. 
 
 <p align="center">
   <img src="img/script_location.png" alt="Script Location">
 </p>
 
-After selecting the folder, it will show the new script as *Fusion_URDF_Exporter_ROS2* under *My Scripts*.
+After selecting the folder, the new script will appear as *Fusion_URDF_Exporter_ROS2* under *My Scripts*.
 
 * **Step 4**: Press Shift+S to see the *Scripts and Add-Ins Window* (Utilities -> ADD-INS)
 
@@ -28,18 +28,17 @@ After selecting the folder, it will show the new script as *Fusion_URDF_Exporter
   <img src="img/fusion360_script.png" alt="Fusion 360 Script Location">
 </p>
 
-The installation is successfull if you are seeing the script under *My Scripts*.
+The installation is successful if you see the script under *My Scripts*.
 
-After installing the script, let's dive into some important design practices we have to do to make the script work.
+After installing the script, let's dive into some important design practices we need to follow to make it work.
 
 ## Important Design Practices 
 
-Here’s a list of things you have to consider before start modelling the robot to make it work with the script:
+Here’s a list of things you have to consider before starting to model the robot to make it work with the script:
 
-* **Correct the Fusion 360 coordinate system**: We have to keep the right-hand-rule for the cartesian coordinate system for designing robot model to properly work with the robot model in ROS 2 URDF. 
+* **Correct the Autodesk Fusion coordinate system**: We have to keep the right-hand rule for the Cartesian coordinate system for designing a robot model to properly work with the robot model in ROS 2 URDF. 
 
 This section describes the coordinate system used in the project.
-
 
 1) **Index Finger (X-axis)**: Represents the positive direction of the X-axis; the robot model should always point to the +X direction in Fusion 360. This axis has the **length** of the robot.
 
@@ -47,13 +46,13 @@ This section describes the coordinate system used in the project.
 
 3) **Middle Finger (Y-axis)**: Represents the positive direction of the Y-axis. This axis is the robot's **width**.
 
-We need to follow this coordinate system to visualize and spawn the model correctly in Rviz and Gazebo in ROS 2.
+We need to follow this coordinate system to visualize and spawn the model correctly in RViz and Gazebo in ROS 2.
 
 <p align="center">
   <img src="img/right_handle_coordinate.png" alt="Right Handle Coordinate" width="50%">
 </p>
 
-In Fusion 360, the robot model and coordinate system looks like this
+In Autodesk Fusion, the robot model and coordinate system look like this
 
 <p align="center">
   <img src="img/coordinate_sys.png" alt="Coordinate System" width="100%">
@@ -71,10 +70,10 @@ In Fusion 360, the robot model and coordinate system looks like this
   - Components should contain **only bodies**—nested components are not supported.
   - Avoid components that have other components inside them.
 
-Here are the components and their bodies in the rosbot from the demos
+Here are the components and their bodies in the ROSBot from the demos
 
 <p align="center">
-  <img src="img/components.png" alt="ROS2Bot Components">
+  <img src="img/components.png" alt="ROSBot Components">
 </p>
 
 
@@ -83,7 +82,7 @@ Here are the components and their bodies in the rosbot from the demos
   - Supported joint types: **Rigid**, **Slider**, and **Revolute**.
 
 - **Complex Kinematic Loops and Spherical Joints**:
-  - Avoid using Fusion 360’s inbuilt joint editor for positioning joints in complex kinematic loops.
+  - Avoid using Autodesk Fusion’s built-in joint editor for positioning joints in complex kinematic loops.
   - For spherical joints:
     - Export as revolute joints and later modify them to spherical joints in the URDF.
     - This works only if the target parser/engine supports spherical joints (e.g., PyBullet).
@@ -103,29 +102,17 @@ Here are the components and their bodies in the rosbot from the demos
 These points cover the critical limitations and considerations when using the script for exporting URDF files from Fusion 360 models.
 
 
-## Usage
-### Start Modeling a Sample Robot
-Here are the instructions on how to start modeling a sample robot using Autodesk Fusion 360.
+## PRACTICAL DESIGN
 
 <p align="center">
   <img src="img/fusionmodeling.png" alt="Fusion Model">
 </p>
 
-### Introduction to Fusion 360 modeling for ROS 2
-
-In this document, we can see how to model a 2-wheel drive robot in Fusion 360 in order to export into ROS 2 URDF.
-
-Here is the robot model we are going to design.
-
-<p align="center">
-  <img src="img/f3d_model.png" alt="Fusion Model">
-</p>
-
-Here are the important steps in the modeling of this robot
+This guide will equip you with the skills to expertly model a two-wheel drive robot in Autodesk Fusion, ensuring a smooth export as a ROS 2 URDF. Here are the important steps in the modeling of this robot
 
 ### 1) Setting the Design plane for export
 
-We must follow the *right-hand rule* for setting the plane before starting the modeling. 
+We must follow the *right-hand rule* to set the plane before starting modeling. 
 
 If we follow this, the exported URDF model will face the *+X-axis*. 
 This is the axis we need when we visualize robots in ROS 2.
@@ -140,28 +127,28 @@ Here is the design plan we have to set before starting the design.
 
 After setting the plane, we can start sketching the robot's base. After sketching the plane, we can extrude the plane to create the box.
 
-Select Menu, *SOLID -> Create Sketch*. After pressing this option, it will ask which plane we have to draw the sketch. 
+Select Menu, *SOLID -> Create Sketch*. After pressing this option, it will ask which plane we want to draw the sketch on. 
 
 It will show different planes, and choosing the exact plane we want may be confusing. 
 
-We can use the *Shift+ Mouse Center button* to orbit the 3D view to select the same plane we have seen in the first step.
+We can use the *Shift+ Mouse Center button* to orbit the 3D view and select the same plane we saw in the first step.
 
 <p align="center">
   <img src="img/modeling/select_plane.png" alt="select_plane" width="100%">
 </p>
 
 
-After selecting the plane, orbit the 3D scene to make the +X axis always front. 
+After selecting the plane, orbit the 3D scene so the +X axis is always facing the front. 
 
 Now, you can select the *2-point rectangle* from the *SKETCH*. From *Sketch-palette* window on right side, choose *center rectange* option as shown below. 
-This option, can draw a rectangle from a center point. 
+This option can draw a rectangle from a center point. 
 
 <p align="center">
   <img src="img/modeling/draw_square.png" alt="draw_square" width="100%">
 </p>
 
 
-After selecting the plane, orbit the 3D scene to make the +X axis always front. 
+After selecting the plane, orbit the 3D scene so the +X axis is always facing the front. 
 
 Now, you can select the *2-point rectangle* from the *SKETCH*. From the *Sketch-palette* window on the right side, choose the *center rectangle* option as shown below. 
 This option allows you to draw a rectangle from a center point.
@@ -171,8 +158,8 @@ This option allows you to draw a rectangle from a center point.
   <img src="img/modeling/draw_square_1.png" alt="draw_square" width="100%">
 </p>
 
-Press the *Tab* key to switch between the square dimensions and enter the dimensions. 
-You can give **200 mm** as the width and length for the base_link.
+Press the *Tab* key to switch between square and rectangular dimensions, then enter the dimensions. 
+You can set the width and length to ** 200 mm ** for the base_link.
 
 <p align="center">
   <img src="img/modeling/draw_square_2.png" alt="draw_square" width="100%">
@@ -186,40 +173,40 @@ After completing the sketch, you can click on the top to select the sketch's top
   <img src="img/modeling/draw_square_3.png" alt="draw_square" width="100%">
 </p>
 
-Now press the key * 'Q' (Menu Solid ->Modify->Press Pull)* to extrude the sketch surface to make a box. Once you press the *'Q'* button, you will see an arrow key that will extrude the sketch to some height. You can give a value of 50 mm as the height.
+Now press the key * 'Q' (Menu Solid ->Modify->Press Pull)* to extrude the sketch surface to make a box. Once you press the *'Q'* button, you will see an arrow key that will extrude the sketch to some height. You can set a height of 50 mm.
 
 <p align="center">
   <img src="img/modeling/draw_square_4.png" alt="draw_square" width="100%">
 </p>
 
-After giving the height as 50 mm, select the *Operation* option from the *Extrude window* on the right side. The *Operation* option we must select is **New Body**. After this option, we can press Ok.
+After entering 50 mm for the height, select the *Operation* option from the *Extrude window* on the right side. The *Operation* option we must select is **New Body**. After this option, we can press Ok.
 
 ### 3) Adding Wheels to the Robot base
 
 We can add wheels after making the robot's main chassis/base_link.
 We must add two active and two passive caster wheels to the chassis.
 
-The following image shows the *Z-X plane*, which shows the side of the chassis in which we have to add wheels.
+The following image shows the *Z-X plane*, which shows the side of the chassis on which we have to add wheels.
 
 <p align="center">
   <img src="img/modeling/wheel_1.png" alt="wheels" width="100%">
 </p>
 
-To create wheels, we can start a sketch and extrude it like we did for the chassis.
+To create wheels, we can start a sketch and extrude it as we did for the chassis.
 In the following image, we can see that you have chosen the *Sketch option* and chose a circle with 
-center diameter circle, and then choose the center of the chassis, as shown in the following image.
-Give a diameter of **100 mm** and press *Finish the sketch*.
+a center diameter, and then chose the center of the chassis, as shown in the following image.
+Enter a diameter of **100 mm**, then press *Finish the sketch*.
 
 <p align="center">
   <img src="img/modeling/wheel_2.png" alt="wheels" width="100%">
 </p>
 
 Now, you can click on the wheel sketch. You may have to press the *Shift* key to
-select each segment of the wheel.
+Select each segment of the wheel.
 
 Now, press *'Q'* to extrude it and make the distance *25mm* the thickness of the wheel.
 
-The important thing to note is that we have to make the wheel a new body in the operation option in extrude.
+The important thing to note is that we have to make the wheel a new body in the extrude operation.
 This makes a new wheel a new body.
 
 
@@ -227,7 +214,7 @@ This makes a new wheel a new body.
   <img src="img/modeling/wheel_3.png" alt="wheels" width="100%">
 </p>
 
-We can create the next wheel with the same process we have done with the first wheel.
+We can create the next wheel using the same process we used for the first.
 
 ### 4) Moving Robot to Ground Level
 
@@ -247,14 +234,14 @@ Here is the side view of the lifted robot.
   <img src="img/modeling/lift_robot.png" alt="lift_robot" width="100%">
 </p>
 
-### 5) Adding Caster Wheels to the Base of the robot
+### 5) Adding Caster Wheels to the Base of the Robot
 
-After lifting the robot, the next step is to add caster wheels to the robot.
-We have to add a caster wheel on the front and back of the robot.
+After lifting the robot, the next step is to add caster wheels.
+We have to add caster wheels to the front and back of the robot.
 As we already discussed, casters are passive wheels that help the robot balance and distribute weight.
 
 To add two casters, we must create 2 small cylinders on the **bottom** side of the chassis. 
-You can put the center of the circle *25 mm* from both sides and have a diameter of *24 mm*.
+You can place the center of the circle *25 mm* from both sides, giving a diameter of *24 mm*.
 
 To create a cylinder, we can extrude a circle sketch.
 The length of the extrude can be *24 mm*, a few mm less than the robot's height from the ground.
@@ -269,15 +256,15 @@ Here is how we extrude the caster wheel. Make sure the Operation is a **Joint**,
   <img src="img/modeling/caster_cylinder.png" alt="caster_sketch" width="100%">
 </p>
 
-After creating the cylinder on both sides, we can make the bottom face of the cylinder, spherical.
+After creating the cylinder on both sides, we can make the bottom face of the cylinder spherical.
 
-Select the face of the cylinder, and Press *'F'*  or *(Menu Surface->Modify->Fillet)*, and using a mouse, we can create a spherical face from the flat surface.
+Select the face of the cylinder, then press *'F'* or *(Menu Surface->Modify->Fillet)*. Using the mouse, we can create a spherical face from a flat surface.
 
 <p align="center">
   <img src="img/modeling/spherical.png" alt="spherical" width="100%">
 </p>
 
-We can do the same operation for both the caster wheels and the final output will look like the following image. 
+We can do the same operation for both the caster wheels, and the final output will look like the following image. 
 
 <p align="center">
   <img src="img/modeling/caster_full.png" alt="spherical" width="100%">
@@ -295,30 +282,29 @@ You can put the center of the box 50 mm from the front of the robot.
   <img src="img/modeling/lidar_box.png" alt="lidar_box" width="100%">
 </p>
 
-After creating the box, we can make a circle (29.5 mm radius) on the top and create a cylinder by extruding the circle by 20 mm.
+After creating the box, we can add a circle (29.5 mm radius) to the top and extrude it by 20 mm to create a cylinder.
 Make sure you are creating a new body when you extrude the object.
 
-After creating all bodies, you can rename them into meaningful names like the one below.
+After creating all bodies, you can rename them to meaningful names, as shown below.
 
 <p align="center">
   <img src="img/modeling/full_model.png" alt="full_model" width="100%">
 </p>
 
-The chassis has to be named as base_link, which is mandatory, and you can name 
-left and right wheels have the same name, and you can also add a name to the lidar.
+The chassis must be named base_link, which is mandatory. You can give the left and right wheels the same name, and you can also give the lidar a name.
 
 ### 7) Adding material type and color
 
-After creating the model, we may go to each *Body*, right-click on each body, and choose *Physical materials*.
+After creating the model, we can go to each *Body*, right-click it, and choose *Physical materials*.
 
-The *Physical material* can assign each link with material properties.
+The *Physical material* can assign material properties to each link.
 
 <p align="center">
   <img src="img/modeling/body_materials.png" alt="body_materials" width="100%">
 </p>
 
 Search for ABS plastic for the base link. Just click and drag the material to the link to apply the material.
-Choose material *Rubber black* for wheels and laminate blue for lidar.
+Choose the *Rubber black* material for the wheels and the blue laminate for the lidar.
 
 <p align="center">
   <img src="img/modeling/rubber_material.png" alt="rubber_materials" width="100%">
@@ -355,16 +341,16 @@ After invoking the *joint* option, we must provide the *components* (link) in th
 
 We can see how to create a revolute joint between the base_link and the two wheels. 
 
-To create a joint, we need two 2 components: the first component should be the wheel, and the second will be the base_link.
+To create a joint, we need two components: the first should be the wheel, and the second should be the base_link.
 
-We have to hide the base_link first and click on the center of the wheel, which is attached to the base_link.
+We have to hide the base_link first, then click the center of the wheel, which is attached to the base_link.
 
 <p align="center">
   <img src="img/modeling/joint_1.png" alt="joint" width="100%">
 </p>
 
 
-After clicking on the center of the wheel, we can see a coordinate on the wheel. Next, we can hide the wheels and attach the frame in the base_link.
+After clicking the center of the wheel, we can see a coordinate on it. Next, we can hide the wheels and attach the frame in the base_link.
 <p align="center">
   <img src="img/modeling/joint_2.png" alt="joint" width="100%">
 </p>
@@ -375,15 +361,15 @@ Once it is done, you can press the *Motion Tab* in the *Edit Joint option* to se
   <img src="img/modeling/joint_3.png" alt="joint" width="100%">
 </p>
 
-We need the revolute joint for the wheels, so select it, and you can preview the motion of the joint as well.
+We need the revolute joint for the wheels, so select it; you can also preview the joint's motion.
 
 After setting one joint, you can do the same for the next wheel as well.
 
 For the lidar link, we have to create a rigid link between the lidar and base_link.
 
-In the Browser section of Fusion 360, go to *Joints* and rename each joint as right_wheel_joint, left_wheel_joint and lidar_joint. 
+In the Browser section of Fusion 360, go to *Joints* and rename each joint as right_wheel_joint, left_wheel_joint, and lidar_joint. 
 
-Congratulations, you have done with the modeling part of the robot. Now, we can export the model to URDF.
+Congratulations, you have finished the modeling part of the robot. Now we can export the model as a URDF.
 
 <p align="center">
   <img src="img/modeling/final_model.png" alt="final" width="100%">
@@ -391,7 +377,7 @@ Congratulations, you have done with the modeling part of the robot. Now, we can 
 
 
 ### Converting Fusion 360 Model to URDF for ROS 2
-After completing the CAD model in Fusion 360, Press Shift+S for opening the script box and select and run the *Fusion_URDF_Exporter_ROS2* script from the list. 
+After completing the CAD model in Fusion 360, Press Shift+S to open the script box and select and run the *Fusion_URDF_Exporter_ROS2* script from the list. 
 
 <p align="center">
   <img src="img/fusion_360_steps.png" alt="Intro Screen">
@@ -403,35 +389,31 @@ After completing the CAD model in Fusion 360, Press Shift+S for opening the scri
 * **Step 2**: After pressing the *Ok* button, it will ask for the folder in which the ROS 2 package has to be created.
  
 
-* **Step 3**: When we press the *Ok* button it will show the browse dialog and we can select a folder.  
+* **Step 3**: When we press the *Ok* button, it will show the browse dialog, and we can select a folder.  
 
-* **Step 4**: After selecting the folder select which Gazebo version we have to go for. Here are the two option that is current available (Gazebo Harmonic or Classic). Based on the input, it will create the launch file for that. 
+* **Step 4**: After selecting the folder, select which Gazebo version we have to go for. Here are the two options that are currently available (Gazebo Harmonic or Classic). Based on the input, it will create the launch file. 
 
 * **Step 5**: Once you select the Gazebo version, it will show the final message whether it is successful or not. 
 It will create the ROS 2 description package after this conversion.
 
 ### Building ROS 2 Package
 
-After creating the ROS 2 package for your robot, you can copy the ROS 2 package to your ROS 2 workspace.
-If you are working in Windows 11, you can work on ROS 2 using WSL or using a virtual machine. Othervice you can reboot and 
-select Ubuntu 22.04 for ROS 2 Humble/Ubuntu 24.04 for ROS 2 Jazzy.
+After creating the ROS 2 package for your robot, you can copy it to your ROS 2 workspace in WSL2.
 
-For example, if you use *rosbot* model from demos folder and convert to ROS 2 package, you will get a package named
-*rosbot_description*. The package is also put in the demos folder for your reference. Copy to your ROS 2 workspace
-
-For eg. Let's ros2_ws is the name of the workspace and you copied the package to the *src* folder of the workspace.
+For example, let's assume ros2_ws is the workspace name, and you copied the package to the workspace's *src* folder.
 
 ```
 cd ~/ros2_ws
 colcon build
 ```
-After building the package, do sourcing of the workspace
+After building the package, do the sourcing of the workspace
 
 ```
 source install/setup.bash
 ```
-After doing the sourcing of the workspace, we can do the visualization and simulation of the robot.
-### Visualizing Robot in Rviz
+After sourcing the workspace, we can visualize and simulate the robot.
+
+### Visualizing Robot in RViz
 Here is the command to visualize the robot in Rviz
 
 ```
@@ -444,8 +426,7 @@ This will be showing Rviz along with *joint_state_publisher_gui* node.
 </p>
 
 ### Launching Robot Simulation in Gazebo Sim
-Here is the command to spawn the robot in Gazebo. The same command can be use for Gazebo Classic and Gazebo Sim.
-
+Here is the command to spawn the robot in Gazebo. The same command can be used for Gazebo Classic and Gazebo Sim.
 ```
 ros2 launch rosbot_description gazebo.launch.py
 ```
@@ -456,9 +437,9 @@ plugins of Gazebo.
   <img src="img/gazebo_visualization.png" alt="Gazebo Visualization">
 </p>
 
-**Note: If you are using Gazebo Sim you can visualize the center of mass, collision and inertia by finding the robot name in the **Entity Tree** and right click on it. You can find an option called **View** and can able to view all these parameters.**
+**Note: If you are using Gazebo Sim, you can visualize the center of mass, collision, and inertia by finding the robot name in the **Entity Tree** and right-clicking on it. You can find an option called **View** to view all these parameters.**
 
-Here is the screenshot of these parameter of rosbot from the demos.
+Here is a screenshot of the ROSBot parameters from the demos.
 
 <p align="center">
   <img src="img/gazebo_param.png" alt="Gazebo Parameters">
@@ -475,13 +456,13 @@ We can modify the generated package as a template and add all the necessary plug
 
 Here is an example of the ROS 2 package for rosbot. You can find the generated package of rosbot from [here](demos/rosbot/generated_pkg/rosbot_description/)
 
-Here are the modifications we have to do to make the robot live.
+Here are the modifications we need to make to bring the robot to life.
 
-#### 1) Correction of xacro file (if the motion is different)
+#### 1) Correction of the xacro file (if the motion is different)
 
 After visualizing and testing the joints of the robot using *joint_state_publisher_gui*, you may notice some joints moving in opposite directions than we expected. 
 
-In the case of rosbot, both wheels should rotate in a clock-vice direction for the positive value of the joint. If you are not getting it, we must edit the generated xacro file. 
+In the case of ROSbot, both wheels should rotate counterclockwise for a positive joint value. If you are not getting it, we must edit the generated Xacro file. 
 
 For example, in this case, we can go to [rosbot.xacro](demos/rosbot/generated_pkg/rosbot_description/urdf/rosbot.xacro) and change the *right_wheel_joint* axis rotation of Y-axis. It is negative now; we have to remove the negative sign.
 
@@ -504,10 +485,7 @@ It should be like this.
 </joint>
 ```
 
-You can find the final xacro from [here](demos/rosbot/modified_pkg/rosbot_description/urdf/rosbot.xacro)
-
 **Note**: The change in URDF can be different for each robot. This change is typical for this robot. After changing the axis, make sure everything works well.
-
 
 #### 2) Add Gazebo Sim Plugins / ROS 2 controllers
 
@@ -515,7 +493,7 @@ After making the changes in xacro, add the necessary Gazebo plugins and ROS 2 co
 
 If you plan to add Gazebo Sim/Gazebo Classic plugins, you can add them in the *rosbot.gazebo* file. In the rosbot example, you can find the final *rosbot.gazebo* from this [link](demos/rosbot/modified_pkg/rosbot_description/urdf/rosbot.gazebo). We have added *the differential drive plugin*, *lidar*, *and joint state plugin* in the URDF.
 
-Here are the add-ons for a differential drive robot with lidar for Gazebo Sim (Prev Ignition Gazebo).
+Here are the add-ons for a differential-drive robot with lidar for Gazebo Sim.
 
 ```
   <gazebo>  
@@ -581,15 +559,9 @@ Here are the add-ons for a differential drive robot with lidar for Gazebo Sim (P
 
 ```
 
-If you are working on Gazebo Classic, you can find the similar
-plugins from this [link](https://classic.gazebosim.org/tutorials?tut=ros_gzplugins)
-
-Note: If you want to interface ROS 2 control with Gazebo Sim, you can refer to *Mastering ROS 2* book [code repo](https://github.com/PacktPublishing/Mastering-ROS-2/tree/main/Chapter05).
-
-
 #### 3) Update Gazebo-ROS 2 bridge topics
 
-After updating the plugins, if you run the gazebo simulation, you can find the Gazebo topics are showing not the ROS 2 topics.
+After updating the plugins, if you run the Gazebo simulation, you can find that the Gazebo topics are not showing the ROS 2 topics.
 
 You can find the Gazebo topics using the following command.
 
@@ -630,7 +602,7 @@ Here are the add-ons in the generated config file
 
 ```
 
-After doing this modification, we can able to see lidar data in Rviz and we can send cmd_vel to Gazebo.
+After making this modification, we can see lidar data in RViz and send cmd_vel to Gazebo.
 
 #### 4) Build and Run the launch file
 
@@ -646,7 +618,7 @@ ros2 launch rosbot_description gazebo.launch.py
 
 #### 5) Moving the robot in Gazebo Sim and ROS 2
 
-To move the robot in GUI, we have to install the rqt plugin called *rqt-robot-steering*.
+To move the robot in the GUI, we have to install the rqt plugin called *rqt-robot-steering*.
 
 Here are the instructions to install the plugin
 
@@ -659,9 +631,9 @@ After installing the plugin, we can start it using the following command
 rqt --force-discover
 ```
 
-Then Choose the *Plugins->Robot-Tools->Robot-Steering* for moving the robot.
+Then choose *Plugins->Robot-Tools->Robot-Steering* to move the robot.
 
-Open *Rviz* in another terminal and choose *gazebo.rviz* for visualizing the robot model and lidar data.
+Open *RViz* in another terminal and select *gazebo.rviz* to visualize the robot model and lidar data.
 
 
 <p align="center">
@@ -669,49 +641,14 @@ Open *Rviz* in another terminal and choose *gazebo.rviz* for visualizing the rob
 </p>
 
 
-
-## Contributing
-
-Always welcome bug fixes, new features etc.
-
-* **Create a Pull Request**: Ceate a pull request from your forked repository. Provide a clear description of the changes and any relevant information. 
-
-## Known Issues and limitations
-Here is the list of known Issues in this project
-
-1) **Creation of Old components in the model**: Once the export is done, it will duplicate components with the name of old components; we can ignore it. Don't save the Fusion 360 model with old components. After conversion from Fusion to URDF, you can close the model without saving. It will be better to have a backup copy of the same model.
-
-2) **Generated URDF model may need fine tuning**: The generated URDF model may need fine-tuning for simulation, especially if you want to change the parameters like friction, material, etc. For example, if you want to export a mobile robot, the friction of the caster wheel may need to be tuned for smooth motion.
-
-3) **Generated package doesn't have Gazebo plugins and ROS 2 controllers**: The generated package has URDF, Gazebo parameters, and a launch file to visualize the robot in Rviz and spawn the model in Gazebo. It doesn't have any plugins to control the robot. It also has no sensors. You must edit the package to add all these into the robot model. 
-
-
 ## Video Tutorials
 
-Here are the list of the video tutorials available showing the conversion of Fusion to ROS 1 & ROS 2
+Here is the list of the video tutorials available showing the same practical guide for the design and conversion of Fusion to ROS 2
 
 * Jerin Peter: 2 Wheeled robot [Video 1](https://youtu.be/cQh0gNfb6ro?si=YrpiM_YY4_1iVCjN), [Video 2](https://www.youtube.com/watch?v=FYF1L440tdY&ab_channel=JerinPeter), [Video 3](https://www.youtube.com/watch?v=z45n69NsPSc&t=2s&ab_channel=JerinPeter)
-* Pranshu Tople: 2 Wheeled robot [Video 1](https://www.youtube.com/watch?v=1zB7rc2DBjk&ab_channel=PranshuTople), [Video 2](https://www.youtube.com/live/o7w7yv-Nros?si=9cG6iYP7mhMna5rn)
-* Ammr: Mechanum Wheeled robot with Arm [Video 1](https://youtu.be/Pokyu91hb_o?si=Mp-0DAUngiiksJSt)
-* Construct: ArmBot [Video 1](https://youtu.be/_ZFo6wPXjeQ?si=iS3kG6LKjb5pv83p)
-## License
-
-This project is licensed under the terms of the [MIT License](LICENSE).
-
-
-## Roadmap
-
-Here are some of the features we plan to implement next (in the order of priority); if you are interested in contributing to any of those, please let us know!:
-
-- [ ] **More Example**: Has to add more robot models and demo packages with plugins and ROS 2 control.
-- [ ] **Optimizing for ROS 2**: The code needs improvement for ROS 2, especially for simulation.
-
 
 ## Credits
-* This project is a modification of repositories from <a href="https://github.com/syuntoku14/fusion2urdf" target="_blank">syuntoku14</a> and <a href="https://github.com/dheena2k2/fusion2urdf-ros2" target="_blank">dheena2k2</a>
+* This guidance is a modification directly from <a href="https://github.com/runtimerobotics/fusion360-urdf-ros2" target="_blank">fusion360-urdf-ros2
+</a>
 
-* Code and Document updatation using <a href="https://github.com/features/copilot" target="_blank">Github Copilot</a> and <a href="https://chatgpt.com/" target="_blank">ChatGPT</a>
-
-## Conclusion
-
-In conclusion, the "Autodesk Fusion 360 to URDF for ROS 2" project provides a powerful and user-friendly tool for roboticists and engineers. By streamlining the process of converting CAD models to URDF files, this tool enhances the efficiency of robot design, visualization, and simulation within the ROS 2 ecosystem. We hope this project will significantly contribute to your robotic development efforts and look forward to your feedback and contributions.
+* Code and Document updatation using <a href="https://github.com/features/copilot" target="_blank">Github Copilot</a>
