@@ -1,6 +1,6 @@
 #  Autodesk Fusion to URDF for ROS 2
 
-## Set up
+## Script Installation
 
 Here are the steps to install the script in Autodesk Fusion
 
