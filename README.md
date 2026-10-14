@@ -1,5 +1,4 @@
 #  Autodesk Fusion to URDF for ROS 2
-edited from https://github.com/runtimerobotics/fusion360-urdf-ros2
 
 ## Set up
 
