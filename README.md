@@ -137,7 +137,7 @@ We can use the *Shift+ Mouse Center button* to orbit the 3D view and select the 
 </p>
 
 
-After selecting the plane, orbit the 3D scene so the +X axis is always facing the front. 
+After selecting the plane, orbit the 3D scene so that the +X axis always faces the front. 
 
 Now, you can select the *2-point rectangle* from the *SKETCH*. From *Sketch-palette* window on right side, choose *center rectange* option as shown below. 
 This option can draw a rectangle from a center point. 
@@ -147,7 +147,7 @@ This option can draw a rectangle from a center point.
 </p>
 
 
-After selecting the plane, orbit the 3D scene so the +X axis is always facing the front. 
+After selecting the plane, orbit the 3D scene so that the +X axis always faces the front. 
 
 Now, you can select the *2-point rectangle* from the *SKETCH*. From the *Sketch-palette* window on the right side, choose the *center rectangle* option as shown below. 
 This option allows you to draw a rectangle from a center point.
@@ -158,7 +158,7 @@ This option allows you to draw a rectangle from a center point.
 </p>
 
 Press the *Tab* key to switch between square and rectangular dimensions, then enter the dimensions. 
-You can set the width and length to ** 200 mm ** for the base_link.
+You can set the width and length to **200 mm** for the base_link.
 
 <p align="center">
   <img src="img/modeling/draw_square_2.png" alt="draw_square" width="100%">
@@ -172,7 +172,7 @@ After completing the sketch, you can click on the top to select the sketch's top
   <img src="img/modeling/draw_square_3.png" alt="draw_square" width="100%">
 </p>
 
-Now press the key * 'Q' (Menu Solid ->Modify->Press Pull)* to extrude the sketch surface to make a box. Once you press the *'Q'* button, you will see an arrow key that will extrude the sketch to some height. You can set a height of 50 mm.
+Now press the **Q** key to extrude the sketch surface into a box. Then you will see an arrow key that extrudes the sketch to a specified height. You can set a height of **50 mm**.
 
 <p align="center">
   <img src="img/modeling/draw_square_4.png" alt="draw_square" width="100%">
