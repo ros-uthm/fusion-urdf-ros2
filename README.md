@@ -98,7 +98,7 @@ Here are the components and their bodies in the ROSBot from the demos
   - Copy-paste actions can lead to problems; prefer "copy-paste new" for components.
   - Preplan component placement to avoid assembly issues.
 
-These points cover the critical limitations and considerations when using the script for exporting URDF files from Fusion 360 models.
+These points cover the critical limitations and considerations when using the script for exporting URDF files from Autodesk Fusion models.
 
 
 ## PRACTICAL DESIGN
