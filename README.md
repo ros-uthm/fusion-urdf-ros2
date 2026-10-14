@@ -1,82 +1,13 @@
-# Autodesk Fusion 360 to URDF for ROS 2
+#  Autodesk Fusion to URDF for ROS 2
+edited from https://github.com/runtimerobotics/fusion360-urdf-ros2
 
-## Table of Contents
+## Set up
 
-1. [Introduction](#introduction)  
-2. [Description](#description)  
-   - [Features](#features)  
-   - [System Requirements](#system-requirements)  
-3. [Installation](#installation)  
-4. [Important Design Practices](#important-design-practices)  
-5. [Usage](#usage)  
-   - [Start Modeling a Sample Robot](#start-modeling-a-sample-robot)  
-     1. [Setting the Design Plane for Export](#1-setting-the-design-plane-for-export)  
-     2. [Sketching Robot Base](#2-sketching-robot-base)  
-     3. [Adding Wheels to the Robot Base](#3-adding-wheels-to-the-robot-base)  
-     4. [Moving Robot to Ground Level](#4-moving-robot-to-ground-level)  
-     5. [Adding Caster Wheels to the Base of the Robot](#5-adding-caster-wheels-to-the-base-of-the-robot)  
-     6. [Adding Lidar Base and Lidar to Robot](#6-adding-lidar-base-and-lidar-to-robot)  
-     7. [Adding Material Type and Color](#7-adding-material-type-and-color)  
-     8. [Converting Bodies to Components](#8-converting-bodies-to-components)  
-     9. [Assigning Joints to Wheels and Joints](#9-assigning-joints-to-wheels-and-joints)  
-   - [Converting Fusion 360 Model to URDF for ROS 2](#converting-fusion-360-model-to-urdf-for-ros-2)  
-   - [Building ROS 2 Package](#building-ros-2-package)  
-   - [Visualizing Robot in Rviz](#visualizing-robot-in-rviz)  
-   - [Launching Robot Simulation in Gazebo Sim](#launching-robot-simulation-in-gazebo-sim)  
-   - [Modifying the generated ROS 2 package](#modifying-the-generated-ros-2-package)  
-     1. [Correction of Xacro File (if the Motion is Different)](#1-correction-of-xacro-file-if-the-motion-is-different)  
-     2. [Add Gazebo Sim Plugins / ROS 2 Controllers](#2-add-gazebo-sim-plugins--ros-2-controllers)  
-     3. [Update Gazebo-ROS 2 Bridge Topics](#3-update-gazebo-ros-2-bridge-topics)  
-     4. [Build and Run the Launch File](#4-build-and-run-the-launch-file)  
-     5. [Moving the Robot in Gazebo Sim and ROS 2](#5-moving-the-robot-in-gazebo-sim-and-ros-2)  
-6. [Contributing](#contributing)  
-7. [Known Issues and Limitations](#known-issues-and-limitations)  
-8. [Video Tutorials](#video-tutorials)
-9. [License](#license)  
-10. [Roadmap](#roadmap)  
-11. [Credits](#credits)  
-12. [Conclusion](#conclusion)  
+Here are the steps to install the script in Autodesk Fusion
 
+* **Step 1**: Download the repository of [fusion360-urdf-ros2](https://github.com/ros-uthm/fusion360-urdf-ros2) as a Zip file and extract the file to a location.
 
-## Introduction
-The "Autodesk Fusion 360 to URDF for ROS 2" project aims to bridge the gap between CAD modeling and robotic simulation. 
-This tool allows users to convert their Autodesk Fusion 360 models into Unified Robot Description Format (URDF) files, which can be used in ROS 2 (Robot Operating System) for visualization and simulation.
- 
-By providing a seamless workflow from design to simulation, this project enables roboticists and engineers to visualize, test, and iterate on their robot designs more efficiently. Whether you are developing a new robot or refining an existing one, this tool simplifies the process of integrating your CAD models into the ROS 2 ecosystem.
-
-## Description
-This project is an Add-In script for Autodesk Fusion 360 to export 3D models to a robot description package which contains URDF, Mesh files (.stl),
-launch files for visualization and simulation etc. to make it work with ROS 2 (Tested in Jazzy and Humble)
-
-Here are the list of features of the project
-
-### Features
-- **Seamless Conversion to URDF**: Easily convert Autodesk Fusion 360 models into URDF files compatible with ROS 2.
-- **Visualization**: Visualize your robot models in Rviz using the launch file automatically created after conversion.
-- **Simulation**: Launch and test your robot simulations in ROS 2 Humble with Gazebo Classic and ROS 2 Jazzy with latest Gazebo Sim.
-- **User-Friendly Workflow**: Provides a straightforward workflow from CAD design to robotic simulation.
-- **Sample Models**: Includes instructions and examples for modeling sample robots.
-- **Customization**: Supports customization of URDF files to match specific robot configurations and requirements.
-- **Documentation**: Comprehensive documentation to guide users through installation, usage, and troubleshooting.
-
-By leveraging this tool, users can bridge the gap between CAD modeling and robotic simulation, making it easier to develop and refine robotic systems within the ROS 2 ecosystem.
-
-### System Requirements
-
-Here is the platform we used to test this plugin.
-
-- **Operating System**: Windows 11 x64, macOS
-- **Software**: Autodesk Fusion 360 2.0.20981 x86_64
-
-## Installation
-
-Here are the steps to install the script in Fusion 360
-
-* **Step 1**: Download and <a href="https://www.autodesk.com/in/education/edu-software/fusion" target="_blank">install Autodesk Fusion 360 in your computer</a>
-
-* **Step 2**: Download repository as Zip file and extract the file to a location.
-
-* **Step 3**: Open Fusion 360, and press *Shift+S*, this will show the Scripts and Add-Ins like shown below
+* **Step 3**: Open Autodesk Fusion and press *Shift+S*, this will show the Scripts and Add-Ins like shown below
 
 <p align="center">
   <img src="img/scripts_ui.png" alt="Scripts and Add-Ins UI">
