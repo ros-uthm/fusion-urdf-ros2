@@ -5,7 +5,7 @@ edited from https://github.com/runtimerobotics/fusion360-urdf-ros2
 
 Here are the steps to install the script in Autodesk Fusion
 
-* **Step 1**: Download the repository of [fusion360-urdf-ros2](https://github.com/ros-uthm/fusion360-urdf-ros2) as a Zip file and extract the file to a location.
+* **Step 1**: Download this repository [fusion360-urdf-ros2 as a Zip file](https://github.com/ros-uthm/fusion360-urdf-ros2/archive/refs/heads/main.zip) and extract the file to a location.
 
 * **Step 3**: Open Autodesk Fusion and press *Shift+S*, this will show the Scripts and Add-Ins like shown below
 
