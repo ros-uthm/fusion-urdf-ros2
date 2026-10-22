@@ -418,7 +418,7 @@ Here is the command to visualize the robot in Rviz
 ```
 ros2 launch rosbot_description display.launch.py
 ```
-This will be showing Rviz along with *joint_state_publisher_gui* node.
+This will show Rviz along with the *joint_state_publisher_gui* node.
 
 <p align="center">
   <img src="img/rviz_visualization.png" alt="Rviz Visualization">
@@ -459,11 +459,11 @@ Here are the modifications we need to make to bring the robot to life.
 
 #### 1) Correction of the xacro file (if the motion is different)
 
-After visualizing and testing the joints of the robot using *joint_state_publisher_gui*, you may notice some joints moving in opposite directions than we expected. 
+After visualizing and testing the joints of the robot using *joint_state_publisher_gui*, you may notice some joints moving in opposite directions from what we expected. 
 
 In the case of ROSbot, both wheels should rotate counterclockwise for a positive joint value. If you are not getting it, we must edit the generated Xacro file. 
 
-For example, in this case, we can go to [rosbot.xacro](demos/rosbot/generated_pkg/rosbot_description/urdf/rosbot.xacro) and change the *right_wheel_joint* axis rotation of Y-axis. It is negative now; we have to remove the negative sign.
+For example, in this case, we can go to **rosbot_description/urdf/rosbot.xacro** and change the *right_wheel_joint* Y-axis rotation. It is negative now; we have to remove the negative sign.
 
 ```
 <joint name="right_wheel_joint" type="continuous">
@@ -490,7 +490,7 @@ It should be like this.
 
 After making the changes in xacro, add the necessary Gazebo plugins and ROS 2 controllers in the URDF.
 
-If you plan to add Gazebo Sim/Gazebo Classic plugins, you can add them in the *rosbot.gazebo* file. In the rosbot example, you can find the final *rosbot.gazebo* from this [link](demos/rosbot/modified_pkg/rosbot_description/urdf/rosbot.gazebo). We have added *the differential drive plugin*, *lidar*, *and joint state plugin* in the URDF.
+If you plan to add Gazebo Sim/Gazebo Classic plugins, you can add them in the *rosbot.gazebo* file. In the rosbot example, you can find the final **rosbot_description/urdf/rosbot.gazebo**. We have added *the differential drive plugin*, *lidar*, *and joint state plugin* in the URDF.
 
 Here are the add-ons for a differential-drive robot with lidar for Gazebo Sim.
 
@@ -570,7 +570,7 @@ gz topic -l
 
 To bridge the Gazebo topics to ROS 2, we can add the bridge topics in the *config/ros_gz_bridge_gazebo.yaml*. These bridge topics can bridge topics from Gazeob<->ROS 2.
 
-Here is the final [bridge yaml file](demos/rosbot/modified_pkg/rosbot_description/config/ros_gz_bridge_gazebo.yaml) for this example.
+Here is the final **rosbot_description/config/ros_gz_bridge_gazebo.yaml** for this example.
 
 Here are the add-ons in the generated config file
 
